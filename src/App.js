@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './views/Home';
+import Documents from './views/Documents';
+import NotFound from './views/NotFound';
+import NavBar from './views/NavBar';
+
+export default class App extends Component {
+	state = {
+		data: '',
+	};
+
+	async componentDidMount() {
+		const res = await axios
+			.get('http://jsonplaceholder.typicode.com/users')
+			.catch(error => console.log(error));
+		this.setState({ data: res.data });
+	}
+
+	render() {
+		return (
+			<Router>
+				<NavBar />
+				<Switch>
+					<Route exact path='/' component={Home} />
+					<Route
+						exact
+						path='/documents'
+						render={() => <Documents props={this.state.data} />}
+					/>
+					<Route component={NotFound} />
+				</Switch>
+			</Router>
+		);
+	}
 }
 
-export default App;
+{
+	/* <Route
+	path='/dashboard'
+	render={props => <Dashboard {...props} isAuthed={true} />}
+/>; */
+}

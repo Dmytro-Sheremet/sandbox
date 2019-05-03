@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import UserCard from '../components/UserCard';
 export default class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -43,11 +44,10 @@ export default class Home extends Component {
 	render() {
 		const { searchRes, formPlaceholder } = this.state;
 
-		const data = searchRes.map((user, index) => (
-			<li key={index} className='list-group-item'>
-				{user.name}
-			</li>
+		const data = searchRes.map(user => (
+			<UserCard key={user.id} user={user} />
 		));
+
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
@@ -60,11 +60,12 @@ export default class Home extends Component {
 						/>
 						<div className='input-group-append'>
 							<button className='btn btn-primary' type='submit'>
-								Button
+								Search
 							</button>
 						</div>
 					</div>
 				</form>
+
 				<ul className='list-group'>{data}</ul>
 			</div>
 		);

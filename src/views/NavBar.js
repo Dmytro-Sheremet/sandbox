@@ -11,7 +11,7 @@ export default function NavBar() {
 			</li>
 			<li className='nav-item'>
 				<Link to='/users' className='nav-link'>
-					Documents
+					Users
 				</Link>
 			</li>
 		</ul>

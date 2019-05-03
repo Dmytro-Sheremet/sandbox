@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react'
 
-export default function DocumentCard() {
-	return <div>DocumentBar</div>;
+export default class DocumentCard extends Component {
+	render() {
+		return (
+			<div>
+				asdads
+			</div>
+		)
+	}
 }
